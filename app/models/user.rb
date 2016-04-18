@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   # get modules to help with some functionality
   include CreameryHelpers::Validations
 
+  # Use built-in rails support for password protection
+  has_secure_password
+
   # Relationships
   belongs_to :employee
 

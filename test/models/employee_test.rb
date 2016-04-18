@@ -7,6 +7,10 @@ class EmployeeTest < ActiveSupport::TestCase
   should have_many(:shifts).through(:assignments)
   should have_one(:user).dependent(:destroy)
   
+
+  should accept_nested_attributes_for(:users).allow_destroy(true)
+
+
   # Test basic validations
   should validate_presence_of(:first_name)
   should validate_presence_of(:last_name)
@@ -58,7 +62,7 @@ class EmployeeTest < ActiveSupport::TestCase
     teardown do
       remove_employees
     end
-  
+
     # now run the tests:
     # test employees must have unique ssn
     should "force employees to have unique ssn" do

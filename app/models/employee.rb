@@ -6,6 +6,9 @@ class Employee < ActiveRecord::Base
   after_destroy :clean_up_assignment_and_shifts
   after_rollback :terminate_employee
 
+  #nested forms for users
+  accepts_nested_attributes_for :users, reject_if: lambda { |user| user[:email].blank? }, allow_destroy: true
+ 
   attr_reader :destroyable
   
   # Relationships
