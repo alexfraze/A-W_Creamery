@@ -8,7 +8,7 @@ class EmployeeTest < ActiveSupport::TestCase
   should have_one(:user).dependent(:destroy)
   
 
-  should accept_nested_attributes_for(:users).allow_destroy(true)
+  should accept_nested_attributes_for(:user).allow_destroy(true)
 
 
   # Test basic validations

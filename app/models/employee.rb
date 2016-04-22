@@ -1,3 +1,5 @@
+
+require 'active_record'
 class Employee < ActiveRecord::Base
   # Callbacks
   before_save :reformat_phone
@@ -6,9 +8,6 @@ class Employee < ActiveRecord::Base
   after_destroy :clean_up_assignment_and_shifts
   after_rollback :terminate_employee
 
-  #nested forms for users
-  accepts_nested_attributes_for :users, reject_if: lambda { |user| user[:email].blank? }, allow_destroy: true
- 
   attr_reader :destroyable
   
   # Relationships
@@ -17,6 +16,11 @@ class Employee < ActiveRecord::Base
   has_one :user, dependent: :destroy
   has_many :shifts, through: :assignments
   
+
+  #nested forms for users
+  accepts_nested_attributes_for :user, reject_if: lambda { |user| user[:email].blank? }, allow_destroy: true
+
+
   # Validations
   validates_presence_of :first_name, :last_name, :date_of_birth, :ssn, :role
   validates_date :date_of_birth, on_or_before: lambda { 14.years.ago }, on_or_before_message: "must be at least 14 years old"
