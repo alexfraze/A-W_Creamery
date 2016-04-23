@@ -55,6 +55,10 @@ class Employee < ActiveRecord::Base
     return nil if curr_assignment.empty?
     curr_assignment.first   # return as a single object, not an array
   end
+
+  def working?
+    !(self.current_assignment.nil?)
+  end
   
   def over_18?
     date_of_birth < 18.years.ago.to_date

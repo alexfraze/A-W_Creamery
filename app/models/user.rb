@@ -13,9 +13,25 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, :message => "is not a valid format"
   validate :employee_is_active_in_system, on: :update
   
+
+  ROLES = [['admin', :admin],['manager', :manager],['employee', :member]]
+
+  def role?(authorized_role)
+    return false if self.employee.nil?
+    self.employee.role.to_sym == authorized_role
+  end
+
+  #authentication
+  def self.authenticate(email,password)
+    find_by_email(email).try(:authenticate, password)
+  end
+
+
   private
+
   def employee_is_active_in_system
     is_active_in_system(:employee)
   end
+
 
 end

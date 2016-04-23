@@ -1,6 +1,13 @@
 class StoresController < ApplicationController
   before_action :set_store, only: [:show, :edit, :update, :destroy]
   
+  #before_action :check_login
+  #skip_before_action :check_login, only: [:index, :show]
+
+  #can can authorization
+  authorize_resource
+
+
   def index
     @active_stores = Store.active.alphabetical.paginate(page: params[:page]).per_page(10)
     @inactive_stores = Store.inactive.alphabetical.paginate(page: params[:page]).per_page(10)  
@@ -19,7 +26,7 @@ class StoresController < ApplicationController
 
   def create
     @store = Store.new(store_params)
-    
+
     if @store.save
       redirect_to store_path(@store), notice: "Successfully created #{@store.name}."
     else

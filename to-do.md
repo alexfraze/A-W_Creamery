@@ -1,5 +1,8 @@
+Original:
+
 1. add nested forms
 2. add authentication from specs sheet
+    1. check if inactive employees should  be shown to managers and if so how do i get inactive employees store?
 2. add js to make interactions easier
 3. make an option to reschedule last weeks shifts and make some changes
 4. make a save and save + create new option for shifts
@@ -10,3 +13,5 @@
 9. comment code and user test
 10. password test that it is updating
 
+Completed
+1. add nested forms
