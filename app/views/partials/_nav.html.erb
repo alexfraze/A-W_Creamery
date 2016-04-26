@@ -34,7 +34,7 @@
 
         <div id="login">  <% if logged_in? %>
           <%= link_to 'Logout', logout_path %>
-          <br>[<%= current_user.employee.proper_name %>:<%= current_user.employee.role%>@<%= current_user.employee.current_assignment.store.name%>]
+          <br>[<%= current_user.employee.proper_name %>:<%= current_user.employee.role%>@<%#= current_user.employee.current_assignment.store.name if !current_user.employee.current_assignment.store.nil? && !current_user.employee.current_assignment.nil?%>]
           <% else %>
           <%= link_to 'Login', login_path %>
           <% end %>

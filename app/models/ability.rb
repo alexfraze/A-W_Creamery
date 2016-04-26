@@ -8,13 +8,37 @@ class Ability
         elsif user.role? :manager
             can :read, [Store, Job, Flavor]
             can :read, Employee do |e|
-                e.working? && user.employee.working? && e.current_assignment.store == user.employee.current_assignment.store
+                e.working? && e.current_assignment.store == user.employee.current_assignment.store
             end
             can :read, Assignment do |a|
-                !user.employee.store.nil? && a.store == user.employee.cuurent_assignment.store
+                 a.store == user.employee.current_assignment.store
             end
+            can :read, Shift do |s|
+                 !s.employee.current_assignment.nil? && s.employee.current_assignment.store == user.employee.current_assignment.store
+            end
+            can :create, Shift do |s|
+               s.store == user.employee.current_assignment.store && !s.employee.current_assignment.nil? && s.employee.current_assignment.store == user.employee.current_assignment.store  
+            end
+            can [:update, :destroy], Shift do |s|
+            	s.store == user.employee.current_assignment.store
+            end
+            can [:create, :destroy], ShiftJob do |sj|
+            	sj.shift.store == user.employee.current_assignment.store
+			end
+			can [:create, :destroy], StoreFlavor do |sf|
+				sf.store == user.employee.current_assignment.store 
+			end
         elsif user.role? :employee
-           # can 
+            can :read, [Store, Job, Flavor] 
+            can :read, [Assignment, User, Shift] do |x| #user, shift
+            	x.employee == user.employee
+            end
+            can :read, Employee do |e|
+            	e == user.employee
+            end
+            can :read, ShiftJob do |sj|
+            	sj.shift.employee == user.employee
+            end
         else
         can :read, Store
     end
