@@ -1,0 +1,3 @@
+<% unless @todays_shifts.empty? %>
+  <%= render partial: "shift_list", locals: {shifts: @todays_shifts, state: 'today\'s'} %>
+<% end %>

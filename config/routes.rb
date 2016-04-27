@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :employees
   resources :assignments   
   resources :sessions
+  resources :shifts
+  resources :flavors
+  #resources :jobs
   
   get 'user/edit' => 'users#edit', :as => :edit_current_user
   get 'signup' => 'users#new', :as => :signup

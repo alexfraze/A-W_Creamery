@@ -17,7 +17,8 @@ Original:
 9. comment code and user test
 10. password test that it is updating
 
-Completed
+Current:
 1. add nested forms
-2. write all authorization code
+2. write all authorization code (needs to be tested)
+3. write controllers (**shifts**, **flavors**, jobs) and basic index view for each
    

@@ -1,0 +1,43 @@
+<% if shifts.empty? %>
+  <p><em>There are no <%= state %> shifts at this time.</em></p>
+<% else %>
+  <h3><%= state.capitalize %> Shifts</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th class="centered">Start Time</th>
+        <th>End Time</th>
+        <% if state == 'past'|| state == 'future' %>
+          <th>Date</th>
+        <% end %>
+        <% if state == 'today\'s'%>
+          <th>Phone</th>
+        <% end %>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% shifts.each do |shift| %>
+        <tr>
+          <td><%= link_to shift.employee.name, employee_path(shift.employee) %></td>
+          <td class="centered"><%= shift.start_time.strftime("%l:%M %p")%></td>
+          <td><%= shift.end_time.strftime("%l:%M %p")%></td>
+          <% if state == 'past' || state == 'future' %>
+            <td><%= shift.date.strftime("%m/%d/%y") %></td>
+          <% end %>
+           <% if state == 'today\'s'%>
+            <td><%= shift.employee.phone %></td>
+          <% end %>
+          <td>
+            <%= link_to(edit_shift_path(shift), class: 'button tiny radius warning') do %>
+              &nbsp;Edit&nbsp;
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%#= will_paginate shifts, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>  
+<% end %>
+<p>&nbsp;</p>

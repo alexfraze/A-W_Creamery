@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="original" content=""><style>body {
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body {
   width: 45em;
   border: 1px solid #ddd;
   outline: 1300px solid #fff;
@@ -1014,27 +1014,58 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>to-do</title></head><body><article class="markdown-body"><ol>
-<li>add nested forms</li>
-<li>add authentication from specs sheet<ol>
-<li>check if inactive employees should  be shown to managers and if so how do i get inactive employees store?</li>
-<li>write all authorization code</li>
-<li>test</li>
-<li>check that views work with authorization (test)</li>
-<li>do I put cancan code in controller or in views (or both?)</li>
-</ol>
-</li>
-<li>add js to make interactions easier</li>
-<li>make an option to reschedule last weeks shifts and make some changes</li>
-<li>make a save and save + create new option for shifts</li>
-<li>datepicker</li>
-<li>check against phase 1 use cases</li>
-<li>change color theme and pictures</li>
-<li>piazza questions check</li>
-<li>comment code and user test</li>
-<li>password test that it is updating</li>
-</ol>
-<p>Current:<br />
-1. add nested forms<br />
-2. write all authorization code (needs to be tested)<br />
-3. write controllers (<strong>shifts</strong>, flavors, jobs)</p></article></body></html>
+</style><title>shifts_controller</title></head><body><article class="markdown-body"><p>class ShiftsController &lt; ApplicationController<br />
+  before_action :set_shift, only: [:show, :edit, :update, :destroy]<br />
+  #before_action :check_login<br />
+  #can can authorization<br />
+  authorize_resource</p>
+<p>def index<br />
+    if user.role? :manager<br />
+      @upcoming_shifts = Shift.all.upcoming.select{|s| s.assignment.store == user.current_assignment.store}<br />
+      @past_shifts = Shift.all.past.select{|s| s.assignment.store == user.current_assignment.store}<br />
+    else<br />
+      @upcoming_shifts = Shift.all#.upcoming.select{|s| can? :read, s}#.paginate(page: params[:page]).per_page(10)<br />
+      @past_shifts = Shift.all#.past.select{|s| can? :read, s}#.paginate(page: params[:page]).per_page(10)<br />
+    end<br />
+    #@inactive_shifts = Shift.inactive.alphabetical.select{|e| can? :read, e}.paginate(page: params[:page], :per_page =&gt; 10)<br />
+    #@active_shifts = Shift.active.alphabetical.select{|e| can? :read, e}.paginate(page: params[:page], :per_page =&gt; 10)<br />
+  end</p>
+<p>def show<br />
+    # get the assignment history for this shift<br />
+    @jobs = @shift.jobs.chronological.paginate(page: params[:page]).per_page(5)<br />
+    # get upcoming shifts for this shift (later)<br />
+  end</p>
+<p>def new<br />
+    @shift = Shift.new<br />
+    #@shift.user.build<br />
+    #@shift.user.shift_id = @shift.id<br />
+  end</p>
+<p>def edit<br />
+  end</p>
+<p>def create<br />
+    @shift = Shift.new(shift_params)<br />
+    if @shift.save<br />
+      redirect_to shifts_path, notice: &ldquo;Successfully created #{@shift.proper_name}.&rdquo;<br />
+    else<br />
+      render action: &lsquo;new&rsquo;<br />
+    end<br />
+  end</p>
+<p>def update<br />
+    if @shift.update(shift_params)<br />
+      redirect_to shift_paths(@shift), notice: &ldquo;Successfully updated #{@shift.proper_name}.&rdquo;<br />
+    else<br />
+      render action: &lsquo;edit&rsquo;<br />
+    end<br />
+  end</p>
+<p>def destroy<br />
+    @shift.destroy<br />
+    redirect_to shifts_path, notice: &ldquo;Successfully removed #{@shift.proper_name} from the AMC system.&rdquo;<br />
+  end</p>
+<p>private<br />
+  def set_shift<br />
+    @shift = Shift.find(params[:id])<br />
+  end</p>
+<p>def shift_params<br />
+    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes)<br />
+  end</p>
+<p>end</p></article></body></html>
