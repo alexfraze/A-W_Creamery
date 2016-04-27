@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :sessions
   resources :shifts
   resources :flavors
-  #resources :jobs
+  resources :jobs
   
   get 'user/edit' => 'users#edit', :as => :edit_current_user
   get 'signup' => 'users#new', :as => :signup

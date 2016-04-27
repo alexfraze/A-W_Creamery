@@ -1,0 +1,3 @@
+<% unless @inactive_jobs.empty? %>
+  <%= render partial: "jobs_list", locals: {jobs: @inactive_jobs, state: 'inactive'} %>
+<% end %>
