@@ -45,13 +45,19 @@
           <%= link_to "Flavors", flavors_path %>
         </li>
 
+
+        <li >
+          <%= link_to "Jobs", jobs_path %>
+        </li>
+
         <div id="login">  <% if logged_in? %>
           <%= link_to 'Logout', logout_path %>
-          <br>[<%= current_user.employee.proper_name %>:<%= current_user.employee.role%>@<%#= current_user.employee.current_assignment.store.name if !current_user.employee.current_assignment.store.nil? && !current_user.employee.current_assignment.nil?%>]
+          <br>[<%= current_user.employee.proper_name %>:<%= current_user.employee.role%>@<%= current_user.employee.current_assignment.store.name if !current_user.employee.current_assignment.nil? && !current_user.employee.current_assignment.store.nil?%>]
           <% else %>
           <%= link_to 'Login', login_path %>
           <% end %>
         </div>
+
 
       </ul>
 

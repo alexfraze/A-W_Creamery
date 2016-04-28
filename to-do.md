@@ -21,4 +21,5 @@ Current:
 1. add nested forms
 2. write all authorization code (needs to be tested)
 3. write controllers (**shifts**, **flavors**, jobs) and basic index view for each
+4. write new and form views for each 
    

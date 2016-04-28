@@ -25,8 +25,14 @@ class ShiftsController < ApplicationController
 
   def new
     @shift = Shift.new
-    #@shift.user.build
-    #@shift.user.shift_id = @shift.id
+    # puts current_user.role?(:manager)
+    # if current_user.role? :manager
+    #   @Assignments = Assignment.current.for_store(current_user.employee.current_assignment.store)
+    #   @store = current_user.employee.current_assignment.store 
+    # elsif current_user.role? :admin
+    #   @Assignments = Assignment.current 
+    #   @stores = Store.alphabetical 
+    
   end
 
   def edit
@@ -35,7 +41,7 @@ class ShiftsController < ApplicationController
   def create
     @shift = Shift.new(shift_params)
     if @shift.save
-      redirect_to shifts_path, notice: "Successfully created #{@shift.proper_name}."
+      redirect_to shifts_path, notice: "Successfully created #{@shift.id}."
     else
       render action: 'new'
     end
@@ -43,7 +49,7 @@ class ShiftsController < ApplicationController
 
   def update
     if @shift.update(shift_params)
-      redirect_to shift_paths(@shift), notice: "Successfully updated #{@shift.proper_name}."
+      redirect_to shift_paths(@shift), notice: "Successfully updated #{@shift.id}."
     else
       render action: 'edit'
     end
@@ -51,7 +57,7 @@ class ShiftsController < ApplicationController
 
   def destroy
     @shift.destroy
-    redirect_to shifts_path, notice: "Successfully removed #{@shift.proper_name} from the AMC system."
+    redirect_to shifts_path, notice: "Successfully removed #{@shift.id} from the AMC system."
   end
 
   private
