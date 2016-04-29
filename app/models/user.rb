@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
 
   def role?(authorized_role)
     return false if self.employee.nil?
-    return :guest if !self.employee.working?
     self.employee.role.to_sym == authorized_role
   end
 

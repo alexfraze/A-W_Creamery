@@ -1,0 +1,3 @@
+<% unless @past_weeks_shifts.empty? %>
+  <%= render partial: "shift_list", locals: {shifts: @past_weeks_shifts, state: 'Past Week\'s'} %>
+<% end %>s

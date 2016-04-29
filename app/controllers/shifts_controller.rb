@@ -5,14 +5,19 @@ class ShiftsController < ApplicationController
   authorize_resource
 
   def index
-    # if user.role? :manager
-    #   @upcoming_shifts = Shift.all.upcoming.select{|s| s.assignment.store == user.current_assignment.store}
-    #   @past_shifts = Shift.all.past.select{|s| s.assignment.store == user.current_assignment.store}
-    # else
-    @todays_shifts = Shift.all.for_next_days(0).chronological.select{|s| can? :read, s}
-    @upcoming_shifts = Shift.all.upcoming.chronological.select{|s| can? :read, s}#.paginate(page: params[:page]).per_page(10)
-    @past_shifts = Shift.all.past.chronological.select{|s| can? :read, s}.reverse#.paginate(page: params[:page]).per_page(10)
-    #end
+    if current_user.role? :manager
+      @todays_shifts = Shift.all.for_next_days(0).select{|s| s.assignment.store == user.current_assignment.store}
+      @upcoming_shifts = Shift.all.upcoming.select{|s| s.assignment.store == user.current_assignment.store}
+      @past_shifts = Shift.all.past.select{|s| s.assignment.store == user.current_assignment.store}.reverse
+      @this_weeks_shifts = Shift.all.for_next_days(6).chronological.select{|s| s.assignment.store == user.current_assignment.store}
+      @past_weeks_shifts = Shift.all.for_past_days(7).chronological.select{|s| s.assignment.store == user.current_assignment.store}
+    else
+      @todays_shifts = Shift.all.for_next_days(0).chronological
+      @upcoming_shifts = Shift.all.upcoming.chronological#.paginate(page: params[:page]).per_page(10)
+      @past_shifts = Shift.all.past.chronological.reverse#.paginate(page: params[:page]).per_page(10)
+      @this_weeks_shifts = Shift.all.for_next_days(6).chronological
+      @past_weeks_shifts = Shift.all.for_past_days(7).chronological
+    end
     #@inactive_shifts = Shift.inactive.alphabetical.select{|e| can? :read, e}.paginate(page: params[:page], :per_page => 10)
     #@active_shifts = Shift.active.alphabetical.select{|e| can? :read, e}.paginate(page: params[:page], :per_page => 10)
   end

@@ -5,7 +5,7 @@ class Ability
         user ||= User.new # guest user (not logged in)
         if user.role? :admin
             can :manage, :all
-        elsif user.role? :manager
+        elsif user.role? :manager && !self.employee.working? 
             can :read, [Store, Job, Flavor]
             can :read, Employee do |e|
                 e.working? && e.current_assignment.store == user.employee.current_assignment.store
