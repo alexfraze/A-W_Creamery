@@ -15,6 +15,10 @@
 //= require jquery_nested_form
 //= require foundation.min
 //= require_tree .
+//= require moment
+//= require bootstrap-datetimepicker
+//= require pickers
+
 
 $(function() {
   $(document).foundation('topbar', 'reflow');

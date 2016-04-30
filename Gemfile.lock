@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/derekprior/momentjs-rails.git
+  revision: 41e30d424e9a56ea4b310087615e1fdc94d87810
+  specs:
+    momentjs-rails (2.11.1)
+      railties (>= 3.1)
+
+GIT
   remote: git://github.com/zpaulovics/datetimepicker-rails.git
   revision: 36d21cec5da7f5b214925804f60e63c61c747023
   branch: master
@@ -151,8 +158,6 @@ GEM
       ruby-progressbar
     mocha (1.1.0)
       metaclass (~> 0.0.1)
-    momentjs-rails (2.11.1)
-      railties (>= 3.1)
     multi_json (1.11.2)
     multi_test (0.1.2)
     nested_form (0.3.2)
@@ -287,6 +292,7 @@ DEPENDENCIES
   minitest-rails
   minitest-reporters
   mocha
+  momentjs-rails (~> 2.9)!
   nested_form
   nokogiri
   quiet_assets
