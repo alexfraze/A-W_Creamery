@@ -16,10 +16,13 @@ Original:
 8. piazza questions check
 9. comment code and user test
 10. password test that it is updating
+11. add phase 3 asthentics and new logo. maybe more colors and asethicts but its only worth 10 pts so dont do too much here.
 
 Current:
 1. add nested forms
 2. write all authorization code (needs to be tested)
 3. write controllers (**shifts**, **flavors**, jobs) and basic index view for each
-4. write new and form views for each 
+4. write new and form views for each ----- still needs to be done
+5. work on some shift views and interactions
+    *add all past shifts and all future shift pages
    

@@ -1,5 +1,16 @@
 <div class="row">
 	<div class="small-8 columns">
+
+		<!-- Add a button for new instances of object -->
+		<%= link_to(eval("new_#{model_name}_path"), class: "button radius") do %>
+		<!-- <i class="fa fa-plus"></i> -->
+		&nbsp;Add a New <%= model_name.capitalize %>
+		<% end %>
+		<!-- Add a button for new instances of object -->
+		<%= link_to(eval("new_#{model_name}_path"), class: "button radius") do %>
+		<!-- <i class="fa fa-plus"></i> -->
+		&nbsp;Add Shifts for the Upcoming Week 	
+		<% end %>
 		<!-- primary partial gets displayed here in main div -->
 		<%= render partial: "#{primary}" %>
 		<!-- sometimes we want another partial below -->
@@ -14,9 +25,3 @@
 		<%= render partial: "#{sidebar}" unless sidebar.blank? %>
 	</div>
 </div>
-
-<!-- Add a button for new instances of object -->
-<%= link_to(eval("new_#{model_name}_path"), class: "button radius") do %>
-<!-- <i class="fa fa-plus"></i> -->
-&nbsp;Add a New <%= model_name.capitalize %>
-<% end %>

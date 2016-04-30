@@ -5,29 +5,33 @@ class Ability
         user ||= User.new # guest user (not logged in)
         if user.role? :admin
             can :manage, :all
-        elsif user.role? :manager && !self.employee.working? 
-            can :read, [Store, Job, Flavor]
-            can :read, Employee do |e|
-                e.working? && e.current_assignment.store == user.employee.current_assignment.store
+        elsif user.role? :manager 
+            if user.employee.working?
+                can :read, [Store, Job, Flavor]
+                can :read, Employee do |e|
+                    e.working? && e.current_assignment.store == user.employee.current_assignment.store
+                end
+                can :past_shifts, Shift 
+                can :future_shifts, Shift
+                can :read, Assignment do |a|
+                     a.store == user.employee.current_assignment.store
+                end
+                can :read, Shift do |s|
+                     !s.employee.current_assignment.nil? && s.employee.current_assignment.store == user.employee.current_assignment.store
+                end
+                can :create, Shift do |s|
+                   s.store == user.employee.current_assignment.store && s.employee.working? && s.employee.current_assignment.store == user.employee.current_assignment.store  
+                end
+                can [:update, :destroy], Shift do |s|
+                	s.store == user.employee.current_assignment.store
+                end
+                can [:create, :destroy], ShiftJob do |sj|
+                	sj.shift.store == user.employee.current_assignment.store
+    			end
+    			can [:create, :destroy], StoreFlavor do |sf|
+    				sf.store == user.employee.current_assignment.store 
+    			end
             end
-            can :read, Assignment do |a|
-                 a.store == user.employee.current_assignment.store
-            end
-            can :read, Shift do |s|
-                 !s.employee.current_assignment.nil? && s.employee.current_assignment.store == user.employee.current_assignment.store
-            end
-            can :create, Shift do |s|
-               s.store == user.employee.current_assignment.store && !s.employee.current_assignment.nil? && s.employee.current_assignment.store == user.employee.current_assignment.store  
-            end
-            can [:update, :destroy], Shift do |s|
-            	s.store == user.employee.current_assignment.store
-            end
-            can [:create, :destroy], ShiftJob do |sj|
-            	sj.shift.store == user.employee.current_assignment.store
-			end
-			can [:create, :destroy], StoreFlavor do |sf|
-				sf.store == user.employee.current_assignment.store 
-			end
         elsif user.role? :employee
             can :read, [Store, Job, Flavor] 
             can :read, [Assignment, User, Shift] do |x| #user, shift
