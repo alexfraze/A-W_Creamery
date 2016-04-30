@@ -28,14 +28,7 @@ class ShiftsController < ApplicationController
 
   def new
     @shift = Shift.new
-    # puts current_user.role?(:manager)
-    # if current_user.role? :manager
-    #   @Assignments = Assignment.current.for_store(current_user.employee.current_assignment.store)
-    #   @store = current_user.employee.current_assignment.store 
-    # elsif current_user.role? :admin
-    #   @Assignments = Assignment.current 
-    #   @stores = Store.alphabetical 
-    
+    @assignments = Assignment.current.for_store(current_user.employee.current_assignment.store.id).by_employee
   end
 
   def edit
@@ -43,6 +36,7 @@ class ShiftsController < ApplicationController
 
   def create
     @shift = Shift.new(shift_params)
+    authorize! :create, @shift
     if @shift.save
       redirect_to shifts_path, notice: "Successfully created #{@shift.id}."
     else
