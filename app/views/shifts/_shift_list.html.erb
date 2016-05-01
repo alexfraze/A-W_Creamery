@@ -13,6 +13,7 @@
 			<% end %>
 			<th>Phone</th>
 			<th>Edit</th>
+			<th>Info</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -31,6 +32,7 @@
 				&nbsp;Edit&nbsp;
 				<% end %>
 			</td>
+			<td>	<%= link_to "Info", shift_path(shift), class: "button radius" %>	</td>
 		</tr>
 		<% end %>
 	</tbody>
@@ -41,7 +43,7 @@
 <!-- <i class="fa fa-plus"></i> -->
 &nbsp;All <%= state2.capitalize %> Shifts
 <% end %>
-<%#= will_paginate shifts, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>  
+
 <% end %>
 <p>&nbsp;</p>
 

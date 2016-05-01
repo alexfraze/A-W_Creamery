@@ -1,19 +1,21 @@
-<%= simple_form_for @shift, html: { class: 'form-horizontal' } do |f| %>
-<fieldset>
-  <legend><%= controller.action_name.capitalize %> Shifts</legend>
+<%= simple_nested_form_for @shift, html: { class: 'form-horizontal' } do |f| %>
 
-  <%= f.input :assignment_id, :collection => @assignments, label_method: ->(a){ a.employee.name }, :include_blank => true, input_html: {class: "avg"} %>
-  <%= f.input :date, :label => "Date", :as => :date_picker %>
-  <%# Only show the end_date on 'edit', not 'new' %>
-  <%# if controller.action_name == "edit" %>
-  <%#= f.input :end_date, :label => "End Date", :as => :date, :start_year => Date.today.year, :end_year => Date.today.year - 1, :order => [:month, :day, :year] %>
-  <%# end %>
-  <%= f.input :start_time, :label => "Start-Time", :as => :time%>
-  <%= f.input :notes, :label => "Notes"%>
-
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'button radius' %>
-    <%= link_to 'Cancel', assignments_path, :class => 'button alert radius' %>
+<div class="row">
+  <div class="span7">
+    <%= render :partial => "shift_fields", :locals => { :f => f } %>
   </div>
-</fieldset>
+
+  <div class="span5">
+    <legend>Shift Jobs</legend>
+    <div id="shift_jobs">
+      <%= f.simple_fields_for :shift_jobs do |shift_jobs_form| %>
+      <%= render :partial => "shift_jobs_fields", :locals => { :f => shift_jobs_form } %>
+      <% end %> 
+      <p>
+        <br /><%= f.link_to_add("Add Job", :shift_jobs, :class => 'button tiny') %>
+      </p>
+    </div> 
+  </div>
+
+</div>
 <% end %>

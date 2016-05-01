@@ -19,7 +19,7 @@ class EmployeesController < ApplicationController
 
   def new
     @employee = Employee.new
-    #@employee.user.build
+    @employee.build_user
     #@employee.user.employee_id = @employee.id
   end
 

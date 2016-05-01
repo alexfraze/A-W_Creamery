@@ -26,3 +26,8 @@ Current:
 5. work on some shift views and interactions
     *add all past shifts and all future shift pages
    
+4/30/16
+- add start and end buttons for shifts for an employee
+
+Questions:
+1. New Shift DatePicker format/proper way to include JS in rails

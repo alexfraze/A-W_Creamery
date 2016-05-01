@@ -5,40 +5,42 @@ class ShiftsController < ApplicationController
   authorize_resource
 
   def index
-    if current_user.role? :manager
+   if current_user.role? :manager
       e = current_user.employee
       curr_a = e.current_assignment
-      @todays_shifts = Shift.all.for_next_days(0).chronological.select{|s| s.assignment.store == curr_a.store}
-      @this_weeks_shifts = Shift.all.for_next_days(6).chronological.select{|s| s.assignment.store == curr_a.store}
-      @past_weeks_shifts = Shift.all.for_past_days(7).chronological.select{|s| s.assignment.store == curr_a.store}
+      @todays_shifts = Shift.all.for_next_days(0).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
+      @this_weeks_shifts = Shift.all.for_next_days(6).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
+      @past_weeks_shifts = Shift.all.for_past_days(7).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
     else
-      @todays_shifts = Shift.all.for_next_days(0).chronological
-      @this_weeks_shifts = Shift.all.for_next_days(6).chronological
-      @past_weeks_shifts = Shift.all.for_past_days(7).chronological
+      @todays_shifts = Shift.all.for_next_days(0).chronological#.paginate(:page => params[:page], :per_page => 10)
+      @this_weeks_shifts = Shift.all.for_next_days(6).chronological#.paginate(:page => params[:page], :per_page => 10)
+      @past_weeks_shifts = Shift.all.for_past_days(7).chronological#.paginate(:page => params[:page], :per_page => 10)
     end
-    #@inactive_shifts = Shift.inactive.alphabetical.select{|e| can? :read, e}.paginate(page: params[:page], :per_page => 10)
-    #@active_shifts = Shift.active.alphabetical.select{|e| can? :read, e}.paginate(page: params[:page], :per_page => 10)
   end
 
   def show
-    # get the assignment history for this shift
-    @jobs = @shift.jobs.chronological.paginate(page: params[:page]).per_page(5)
-    # get upcoming shifts for this shift (later)  
+    @jobs = @shift.jobs.alphabetical.paginate(page: params[:page]).per_page(5)
   end
 
   def new
     @shift = Shift.new
-    @assignments = Assignment.current.for_store(current_user.employee.current_assignment.store.id).by_employee
+    if current_user.role? :manager
+     @assignments = Assignment.current.for_store(current_user.employee.current_assignment.store.id).by_employee
+    else
+      @assignments = Assignment.current.by_employee
+    end
+    @jobs = Job.active.alphabetical
+    @shift.shift_jobs.build
   end
 
-  def edit
-  end
+def edit
+end
 
-  def create
-    @shift = Shift.new(shift_params)
-    authorize! :create, @shift
-    if @shift.save
-      redirect_to shifts_path, notice: "Successfully created #{@shift.id}."
+def create
+  @shift = Shift.new(shift_params)
+  authorize! :create, @shift
+  if @shift.save
+      redirect_to shifts_path , notice: "Successfully created shift for #{@shift.assignment.employee.name}."
     else
       render action: 'new'
     end
@@ -80,7 +82,7 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes)
+    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, shift_jobs_attributes: [:id, :job_id])
   end
 
 

@@ -21,3 +21,8 @@
 
 en:
   hello: "Hello world"
+
+en:
+  datepicker:
+    dformat: '%m/%d/%Y'             # display format of the date (this is the default, can be ommited)
+    pformat: 'DD/MM/YYYY'   

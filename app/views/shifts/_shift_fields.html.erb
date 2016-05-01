@@ -1,0 +1,13 @@
+   		<fieldset class="min_employee">
+   			<legend><%= controller.action_name.capitalize %> Shift</legend>
+
+   			<%= f.input :assignment_id, :collection => @assignments, label_method: ->(a){ a.employee.name }, :include_blank => true, input_html: {class: "avg"} %>
+   			<%= f.input :date, :label => "Date", :as => :date_picker %>
+   			<%= f.input :start_time, :label => "Start-Time", :as => :time%>
+   			<%= f.input :notes, :label => "Notes"%>
+
+   			<div class="form-actions">
+   				<%= f.submit nil, :class => 'button radius' %>
+   				<%= link_to 'Cancel', shifts_path, :class => 'button alert radius' %>
+   			</div>
+   		</fieldset>

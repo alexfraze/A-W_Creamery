@@ -6,6 +6,11 @@ class Shift < ActiveRecord::Base
   has_one :employee, through: :assignment
   has_one :store, through: :assignment
 
+
+
+  #nested forms for users
+  accepts_nested_attributes_for :shift_jobs, reject_if: lambda { |user| user[:email].blank?}, allow_destroy: true
+
   # Validations
   validates_date :date, on_or_after: lambda { :assignment_starts }, on_or_before_message: "must be on or after the start of the assignment"
   validates_time :start_time
