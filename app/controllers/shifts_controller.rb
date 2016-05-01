@@ -6,8 +6,8 @@ class ShiftsController < ApplicationController
 
   def index
    if current_user.role? :manager
-      e = current_user.employee
-      curr_a = e.current_assignment
+    e = current_user.employee
+    curr_a = e.current_assignment
       @todays_shifts = Shift.all.for_next_days(0).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
       @this_weeks_shifts = Shift.all.for_next_days(6).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
       @past_weeks_shifts = Shift.all.for_past_days(7).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
@@ -30,7 +30,6 @@ class ShiftsController < ApplicationController
       @assignments = Assignment.current.by_employee
     end
     @jobs = Job.active.alphabetical
-    @shift.shift_jobs.build
   end
 
 def edit
@@ -38,31 +37,32 @@ end
 
 def create
   @shift = Shift.new(shift_params)
-  authorize! :create, @shift
+  #authorize! :create, @shift
   if @shift.save
-      redirect_to shifts_path , notice: "Successfully created shift for #{@shift.assignment.employee.name}."
-    else
-      render action: 'new'
-    end
+    #@shift.shift_jobs.build
+    redirect_to shifts_path , notice: "Successfully created shift for #{@shift.assignment.employee.name}."
+  else
+    render action: 'new'
   end
+end
 
-  def update
-    if @shift.update(shift_params)
-      redirect_to shift_paths(@shift), notice: "Successfully updated #{@shift.id}."
-    else
-      render action: 'edit'
-    end
+def update
+  if @shift.update(shift_params)
+    redirect_to shift_paths(@shift), notice: "Successfully updated #{@shift.id}."
+  else
+    render action: 'edit'
   end
+end
 
-  def destroy
-    @shift.destroy
-    redirect_to shifts_path, notice: "Successfully removed #{@shift.id} from the AMC system."
-  end
+def destroy
+  @shift.destroy
+  redirect_to shifts_path, notice: "Successfully removed #{@shift.id} from the AMC system."
+end
 
-  def past_shifts
-    if current_user.role? :manager
-     @past_shifts = Shift.all.past.select{|s| s.assignment.store == current_user.employee.current_assignment.store}.reverse
-   else 
+def past_shifts
+  if current_user.role? :manager
+   @past_shifts = Shift.all.past.select{|s| s.assignment.store == current_user.employee.current_assignment.store}.reverse
+ else 
       @past_shifts = Shift.all.past.chronological.reverse#.paginate(page: params[:page]).per_page(10)
     end
   end
@@ -82,7 +82,7 @@ def create
   end
 
   def shift_params
-    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, shift_jobs_attributes: [:id, :job_id])
+    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, shift_jobs_attributes: [:job_id])
   end
 
 

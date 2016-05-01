@@ -8,6 +8,7 @@ Original:
     4. check that views work with authorization (test)
     5. do I put cancan code in controller or in views (or both?)
 2. add js to make interactions easier
+3. add in controllers for jobs, shifts, and flavors
 3. make an option to reschedule last weeks shifts and make some changes
 4. make a save and save + create new option for shifts
 5. datepicker
@@ -17,6 +18,7 @@ Original:
 9. comment code and user test
 10. password test that it is updating
 11. add phase 3 asthentics and new logo. maybe more colors and asethicts but its only worth 10 pts so dont do too much here.
+12. write a design notes section in the read-me about certain design choices and features of my phase 5 project.
 
 Current:
 1. add nested forms
@@ -31,3 +33,4 @@ Current:
 
 Questions:
 1. New Shift DatePicker format/proper way to include JS in rails
+2. Does EC for testing count for 1% of project or 1% of class grade?

@@ -8,8 +8,8 @@
   <div class="span5">
     <legend>Shift Jobs</legend>
     <div id="shift_jobs">
-      <%= f.simple_fields_for :shift_jobs do |shift_jobs_form| %>
-      <%= render :partial => "shift_jobs_fields", :locals => { :f => shift_jobs_form } %>
+      <%= f.simple_fields_for :shift_jobs do |shift_job_form| %>
+      <%= render :partial => "shift_jobs_fields", :locals => { :f => shift_job_form } %>
       <% end %> 
       <p>
         <br /><%= f.link_to_add("Add Job", :shift_jobs, :class => 'button tiny') %>
