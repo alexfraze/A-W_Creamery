@@ -4,8 +4,8 @@ class StoreFlavor < ActiveRecord::Base
   belongs_to :store
   belongs_to :flavor
   # validations
-  validates_presence_of :store_id, :flavor_id
-  validate :store_is_active_in_system, on: :create
+  validates_presence_of :flavor_id
+  validate :store_is_active_in_system, on: :update
   validate :flavor_is_active_in_system, on: :create
 
   private  

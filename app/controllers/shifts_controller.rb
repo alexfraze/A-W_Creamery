@@ -9,12 +9,12 @@ class ShiftsController < ApplicationController
     e = current_user.employee
     curr_a = e.current_assignment
       @todays_shifts = Shift.all.for_next_days(0).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
-      @this_weeks_shifts = Shift.all.for_next_days(6).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
-      @past_weeks_shifts = Shift.all.for_past_days(7).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
+      @this_weeks_shifts = Shift.all.for_next_days(3).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
+      @past_weeks_shifts = Shift.all.for_past_days(4).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
     else
       @todays_shifts = Shift.all.for_next_days(0).chronological#.paginate(:page => params[:page], :per_page => 10)
-      @this_weeks_shifts = Shift.all.for_next_days(6).chronological#.paginate(:page => params[:page], :per_page => 10)
-      @past_weeks_shifts = Shift.all.for_past_days(7).chronological#.paginate(:page => params[:page], :per_page => 10)
+      @this_weeks_shifts = Shift.all.for_next_days(3).chronological#.paginate(:page => params[:page], :per_page => 10)
+      @past_weeks_shifts = Shift.all.for_past_days(4).chronological#.paginate(:page => params[:page], :per_page => 10)
     end
   end
 
@@ -47,7 +47,7 @@ end
 
 def update
   if @shift.update(shift_params)
-    redirect_to shift_paths(@shift), notice: "Successfully updated #{@shift.id}."
+    redirect_to shift_path(@shift), notice: "Successfully updated #{@shift.id}."
   else
     render action: 'edit'
   end
@@ -81,7 +81,7 @@ def past_shifts
   end
 
   def shift_params
-    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, shift_jobs_attributes: [:shift_id, :job_id])
+    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, shift_jobs_attributes: [:shift_id, :job_id, :_destroy])
   end
 
 

@@ -22,7 +22,13 @@ class Store < ActiveRecord::Base
   validates_format_of :phone, with: /\A\(?\d{3}\)?[-. ]?\d{3}[-.]?\d{4}\z/, message: "should be 10 digits (area code needed) and delimited with dashes only"
   # make sure stores have unique names
   validates_uniqueness_of :name
-  
+
+
+
+  #nested forms for users
+  accepts_nested_attributes_for :store_flavors,  allow_destroy: true
+
+
   # Scopes
   scope :alphabetical, -> { order('name') }
   scope :active,       -> { where(active: true) }

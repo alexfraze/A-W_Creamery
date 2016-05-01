@@ -8,6 +8,8 @@ class StoreTest < ActiveSupport::TestCase
   should have_many(:store_flavors)
   should have_many(:flavors).through(:store_flavors)
 
+  should accept_nested_attributes_for(:store_flavors).allow_destroy(true)
+
   # Test basic validations
   should validate_presence_of(:name)
   should validate_presence_of(:street)

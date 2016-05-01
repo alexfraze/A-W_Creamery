@@ -1,0 +1,4 @@
+      <legend>Store Flavors</legend>
+      <%= f.input :flavor_id, :collection => @flavors, label_method: ->(f){ f.name }, :include_blank => true, input_html: {class: "avg"} %>
+      <td><%= f.link_to_remove "Remove this flavor" %></td>
+

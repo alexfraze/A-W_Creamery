@@ -1,12 +1,12 @@
 <%= simple_nested_form_for @employee, html: { class: 'form-horizontal' } do |f| %>
 <div class="row">
 	<div class="span7">
-	<%= render :partial => "employee_fields", :locals => { :f => f } %>
+		<%= render :partial => "employee_fields", :locals => { :f => f } %>
 	</div>
 	<div class="span5">
 		<legend>User Account Information</legend>
 		<div id="user_account_info">
-		<%= f.simple_fields_for :user do |user_form| %>
+			<%= f.simple_fields_for :user do |user_form| %>
 			<%= render :partial => "user_fields", :locals => { :f => user_form } %>
 			<% end %> 
 			<p>

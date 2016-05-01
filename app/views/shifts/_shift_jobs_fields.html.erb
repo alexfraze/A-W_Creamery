@@ -1,1 +1,4 @@
-    <%= f.input :job_id, :collection => @jobs, label_method: ->(j){ j.name }, :include_blank => true, input_html: {class: "avg"} %>
+      <legend>Shift Jobs</legend>
+      <%= f.input :job_id, :collection => @jobs, label_method: ->(j){ j.name }, :include_blank => true, input_html: {class: "avg"} %>
+      <td><%= f.link_to_remove "Remove this task" %></td>
+  

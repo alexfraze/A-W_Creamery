@@ -36,5 +36,13 @@ Questions:
 2. Does EC for testing count for 1% of project or 1% of class grade?
 3. pagination issues for multiple lists on same page
 4. increaseing load time for authorization of lists of shifts and such?
-5. I removed validates presence of shift_id and change active_shift validation to on update. Simiiliar to employee situation, is this ok?
-6. duplicates of added shift jobs and store flavors
+5. I removed validates presence of shift_id and change active_shift validation to on update. Simiiliar to employee situation and for store-flavors nested in store, is this ok?
+6. duplicates of added shift jobs and store flavors. (bugs with adding a new job and old ones getting re added) also forms chaning to numbers on edit/update vs. create/new
+
+
+
+
+
+Need to change back:
+shift scopes changes to 3 days to make for quicker load. (6-7 days?)
+run through all auths and make sure they are doing what they are supposed to.
