@@ -37,9 +37,8 @@ end
 
 def create
   @shift = Shift.new(shift_params)
-  #authorize! :create, @shift
+  authorize! :create, @shift
   if @shift.save
-    #@shift.shift_jobs.build
     redirect_to shifts_path , notice: "Successfully created shift for #{@shift.assignment.employee.name}."
   else
     render action: 'new'
@@ -82,7 +81,7 @@ def past_shifts
   end
 
   def shift_params
-    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, shift_jobs_attributes: [:job_id])
+    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, shift_jobs_attributes: [:shift_id, :job_id])
   end
 
 

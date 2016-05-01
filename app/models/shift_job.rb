@@ -4,8 +4,8 @@ class ShiftJob < ActiveRecord::Base
   belongs_to :shift
   belongs_to :job
   # validations
-  validates_presence_of :shift_id, :job_id
-  validate :shift_is_active_in_system, on: :create
+  validates_presence_of :job_id
+  validate :shift_is_active_in_system, on: :update
   validate :job_is_active_in_system, on: :create
 
   private  

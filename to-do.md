@@ -34,3 +34,7 @@ Current:
 Questions:
 1. New Shift DatePicker format/proper way to include JS in rails
 2. Does EC for testing count for 1% of project or 1% of class grade?
+3. pagination issues for multiple lists on same page
+4. increaseing load time for authorization of lists of shifts and such?
+5. I removed validates presence of shift_id and change active_shift validation to on update. Simiiliar to employee situation, is this ok?
+6. duplicates of added shift jobs and store flavors

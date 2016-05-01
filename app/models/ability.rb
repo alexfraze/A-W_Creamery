@@ -20,7 +20,7 @@ class Ability
                      !s.employee.current_assignment.nil? && s.employee.current_assignment.store == user.employee.current_assignment.store
                 end
                 can :create, Shift do |s|
-                   s.store == user.employee.current_assignment.store && s.employee.working? && s.employee.current_assignment.store == user.employee.current_assignment.store  
+                  s.store == user.employee.current_assignment.store && s.employee.working? && s.employee.current_assignment.store == user.employee.current_assignment.store  
                 end
                 can [:update, :destroy], Shift do |s|
                 	s.store == user.employee.current_assignment.store

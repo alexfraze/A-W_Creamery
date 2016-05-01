@@ -7,6 +7,10 @@ class ShiftTest < ActiveSupport::TestCase
   should have_one(:employee).through(:assignment)
   should have_one(:store).through(:assignment)
 
+
+  should accept_nested_attributes_for(:shift_jobs).allow_destroy(true)
+
+
   should allow_value(Time.now).for(:start_time)
   should allow_value(1.hour.from_now).for(:start_time)
   should allow_value(2.hours.ago).for(:start_time)
