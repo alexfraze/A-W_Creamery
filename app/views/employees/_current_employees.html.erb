@@ -31,6 +31,6 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @active_employees, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next" %>
+<%= (will_paginate @active_employees, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next") if @active_employees.size > 1 %>
 
 <% end %>
