@@ -4,8 +4,15 @@ class EmployeesController < ApplicationController
   authorize_resource
 
   def index
-    @active_employees = Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
-    @inactive_employees = Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
+    user = current_user
+    if user.role? :manager
+      user = user.employee
+      @active_employees = Employee.active.alphabetical.select{|e| e.working? && e.current_assignment.store == user.current_assignment.store}.paginate(:page => params[:page], :per_page => 10)
+      @inactive_employees = Employee.inactive.alphabetical.select{|e| e.working? && e.current_assignment.store == user.current_assignment.store}.paginate(page: params[:page], :per_page => 10)
+    else
+      @active_employees = Employee.active.alphabetical.paginate(page: params[:page]).per_page(10)
+      @inactive_employees = Employee.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
+    end
   end
 
   def show

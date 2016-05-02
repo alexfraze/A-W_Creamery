@@ -46,3 +46,4 @@ Questions:
 Need to change back:
 shift scopes changes to 3 days to make for quicker load. (6-7 days?)
 run through all auths and make sure they are doing what they are supposed to.
+- past and future shifts as seperate controller actions
