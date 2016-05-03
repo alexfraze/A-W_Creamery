@@ -11,16 +11,19 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery-ui
 //= require jquery_ujs
+//= require jquery-ui
 //= require jquery_nested_form
 //= require foundation.min
 //= require_tree .
-//= require moment
-//= require bootstrap-datetimepicker
-//= require pickers
+
 
 
 $(function() {
   $(document).foundation('topbar', 'reflow');
+});
+
+
+$(function() {
+  $('.datepicker').datepicker({dateFormat: 'MM d, yy'});
 });

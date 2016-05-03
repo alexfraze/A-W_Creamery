@@ -48,6 +48,12 @@ end
 
 
 def edit
+  if current_user.role? :manager
+   @assignments = Assignment.current.for_store(current_user.employee.current_assignment.store.id).by_employee
+ else
+  @assignments = Assignment.current.by_employee
+end
+@jobs = Job.active.alphabetical
 end
 
 def create
