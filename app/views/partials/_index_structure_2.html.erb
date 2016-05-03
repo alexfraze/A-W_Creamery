@@ -4,17 +4,22 @@
     <%= render partial: "#{primary}" %>
     <!-- sometimes we want another partial below -->
     <% unless secondary.nil? %>
-      <p>&nbsp;</p>
-      <%= render partial: "#{secondary}" %>
+    <p>&nbsp;</p>
+    <%= render partial: "#{secondary}" %>
     <% end %>
     
   </div>
   <div class="small-3 columns">
     <!-- Add a button for new instances of object -->
+    <% if !current_user.nil? and (current_user.role? :admin or (current_user.role? :manager and model_name!="assignment"))%>
+
+    <!-- Add a button for new instances of object -->
     <%= link_to(eval("new_#{model_name}_path"), class: "button radius") do %>
-      <!-- <i class="fa fa-plus"></i> -->
-      &nbsp;Add a New <%= model_name.capitalize %>
+    <!-- <i class="fa fa-plus"></i> -->
+    &nbsp;Add a New <%= model_name.capitalize %>
     <% end %>
+    <% end %>
+    
   </div>
 </div>
 
