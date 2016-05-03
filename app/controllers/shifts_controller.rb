@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :set_shift, only: [:show, :edit, :update, :destroy]
+  before_action :set_shift, only: [:show, :edit, :update, :destroy, :start_now, :end_now]
   #before_action :check_login
   #can can authorization
   authorize_resource
@@ -35,6 +35,17 @@ class ShiftsController < ApplicationController
   end
   @jobs = Job.active.alphabetical
 end
+
+def start_now
+  @shift.start_now
+  redirect_to home_path, notice: "started shift"
+end
+
+def end_now
+  @shift.end_now
+  redirect_to home_path, notice: "ended shift"
+end
+
 
 def edit
 end

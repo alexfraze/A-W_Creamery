@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   get 'future_shifts' => 'shifts#future_shifts', :as => :future_shifts
   get 'past_shifts' => 'shifts#past_shifts', :as => :past_shifts
   
+  get 'start_now/:id' => 'shifts#start_now', :as => :start_now
+  get 'end_now/:id' => 'shifts#end_now', :as => :end_now
+
+
   # Set the root url
   root :to => 'home#home'  
   

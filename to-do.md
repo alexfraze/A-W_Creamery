@@ -38,6 +38,7 @@ Questions:
 4. increaseing load time for authorization of lists of shifts and such?
 5. I removed validates presence of shift_id and change active_shift validation to on update. Simiiliar to employee situation and for store-flavors nested in store, is this ok?
 6. duplicates of added shift jobs and store flavors. (bugs with adding a new job and old ones getting re added) also forms chaning to numbers on edit/update vs. create/new
+7. what to use javascript for?
 
 
 

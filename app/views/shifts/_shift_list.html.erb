@@ -14,6 +14,7 @@
 			<th>Phone</th>
 			<th>Edit</th>
 			<th>Info</th>
+			<th>Remove</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -32,7 +33,10 @@
 				&nbsp;Edit&nbsp;
 				<% end %>
 			</td>
-			<td>	<%= link_to "Info", shift_path(shift), class: "button radius" %>	</td>
+			<td>	<%= link_to "Info", shift_path(shift), class: 'button tiny radius warning'%>	
+			</td>
+			<td>	<%= button_to "delete", shift, :method=>:delete, class: 'button tiny radius warning'  %>
+			</td>
 		</tr>
 		<% end %>
 	</tbody>

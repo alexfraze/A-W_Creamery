@@ -43,6 +43,15 @@ class Ability
             can :read, ShiftJob do |sj|
             	sj.shift.employee == user.employee
             end
+            can :read, ShiftJob do |sj|
+                sj.shift.employee == user.employee
+            end
+            can :start_now, Shift do |s|
+                s.date == Date.today
+            end
+            can :end_now, Shift do |s|
+                s.date == Date.today
+            end
         else
         can :read, Store
     end
