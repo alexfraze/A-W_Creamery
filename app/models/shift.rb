@@ -51,7 +51,7 @@ class Shift < ActiveRecord::Base
   end
 
   def create_weeks_shifts
-    
+        
   end
 
   def duration
