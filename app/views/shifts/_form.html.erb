@@ -1,22 +1,32 @@
-<%= simple_nested_form_for @shift, html: { class: 'form-horizontal' } do |f| %>
+<%= simple_form_for @shift, html: { class: 'form-horizontal' } do |f| %>
 
 
 <div class="row">
-  <div class="span7">
-    <%= render :partial => "shift_fields", :locals => { :f => f } %>
-  </div>
+	<div class="span7">
+		<%= render :partial => "shift_fields", :locals => { :f => f } %>
+	</div>
 
-  <div class="span5">
-    <div id="shift_jobs">
-      <%= f.simple_fields_for :shift_jobs do |shift_job_form| %>
-      <%= render :partial => "shift_jobs_fields", :locals => { :f => shift_job_form } %>
-      <% end %>
-      <p>
-        <br /><%= f.link_to_add("Add Job", :shift_jobs, :class => 'button tiny') %>
-      </p>
-      
-    </div> 
-  </div>
+	<div class="span5">
+		<div id="shift_jobs">
+			<%= render :partial => "shift_jobs_fields", :locals => { :f => f } %>
+		</div> 
+
+	</div>
 
 </div>
+
+
 <% end %>
+
+
+<% if controller.action_name == "new" %>
+<%=  link_to(action: :create_this_week, class: "button radius", style: 'background: green;') do %>
+<!-- <i class="fa fa-plus"></i> -->
+&nbsp;Re-Assign Last weeks shifts for this Week <br> 	
+<% end %>
+
+<%=  link_to(action: :create_next_week, class: "button radius", style: 'background: green;') do %>
+<!-- <i class="fa fa-plus"></i> -->
+&nbsp;Re-Assign This weeks shifts for the upcoming Week 
+<% end %>
+<%end %>

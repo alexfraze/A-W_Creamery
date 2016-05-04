@@ -27,3 +27,8 @@ $(function() {
 $(function() {
   $('.datepicker').datepicker({dateFormat: 'MM d, yy'});
 });
+
+
+$("#hideAfterClick").on('click', function(){
+   $(this).hide();
+});

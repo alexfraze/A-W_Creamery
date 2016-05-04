@@ -1,4 +1,4 @@
-<%= simple_nested_form_for @store, html: { class: 'form-horizontal' } do |f| %>
+<%= simple_form_for @store, html: { class: 'form-horizontal' } do |f| %>
 
 
 <div class="row">
@@ -8,13 +8,7 @@
 
 	<div class="span5">
 		<div id="store_flavors">
-			<%= f.simple_fields_for :store_flavors do |store_flavors_form| %>
-			<%= render :partial => 'store_flavor_fields', :locals => { :f => store_flavors_form } %> 
-			<% end %> 
-			<p>
-				<br/>
-				<%= f.link_to_add("Add Flavor", :store_flavors, :class => 'button tiny') %>
-			</p>
+			<%= render :partial => 'store_flavor_fields', :locals => { :f => f } %> 
 		</div> 
 	</div>
 

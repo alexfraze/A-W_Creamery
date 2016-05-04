@@ -31,20 +31,37 @@ Current:
 4/30/16
 - add start and end buttons for shifts for an employee
 
+
+
+OH May 2nd
 Questions:
 1. New Shift DatePicker format/proper way to include JS in rails
-2. Does EC for testing count for 1% of project or 1% of class grade?
-3. pagination issues for multiple lists on same page
+**2. Does EC for testing count for 1% of project or 1% of class grade?**
+*3. pagination issues for multiple lists on same page 
 4. increaseing load time for authorization of lists of shifts and such?
-5. I removed validates presence of shift_id and change active_shift validation to on update. Simiiliar to employee situation and for store-flavors nested in store, is this ok?
+5. I removed validates presence of shift_id and change active_shift validation to on update. Simiiliar to employee situation and for store-flavors nested in store, is this ok? this is ok. **change to checkboxs**
 6. duplicates of added shift jobs and store flavors. (bugs with adding a new job and old ones getting re added) also forms chaning to numbers on edit/update vs. create/new
 7. what to use javascript for?
 
 
 
+STill need to do as of may 2:
+- adding future shifts for a week (employee, all employees, add another)
+- remove the add multiple users option
+- allow users to edit their own info but not their ssns
 
 
-Need to change back:
+- colors and picture changes
+
+Views: as employee cant see edit and delete store buttons
+-assignments only viewable to employee or right manager
+
+cant add employee as manager or employee
+
+Need to change back at end:
 shift scopes changes to 3 days to make for quicker load. (6-7 days?)
 run through all auths and make sure they are doing what they are supposed to.
-- past and future shifts as seperate controller actions
+- past and future shifts as seperate controller actions fix this
+- write and make sure all tests for controllers and models are passing
+- finish writing style notes in read me_
+- piazza questions incorporate

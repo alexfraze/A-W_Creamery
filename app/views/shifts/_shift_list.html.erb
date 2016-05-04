@@ -8,9 +8,7 @@
 			<th>Employee</th>
 			<th class="centered">Start Time</th>
 			<th>End Time</th>
-			<% if state == 'Past Week\'s'|| state == 'This Week\'s' %>
 			<th>Date</th>
-			<% end %>
 			<th>Phone</th>
 			<th>Edit</th>
 			<th>Info</th>
@@ -24,9 +22,7 @@
 			<td><%= link_to shift.employee.name, employee_path(shift.employee) %></td>
 			<td class="centered"><%= shift.start_time.strftime("%l:%M %p")%></td>
 			<td><%= shift.end_time.strftime("%l:%M %p")%></td>
-			<% if state == 'Past Week\'s'|| state == 'This Week\'s' %>
 			<td><%= shift.date.strftime("%m/%d/%y") %></td>
-			<% end %>
 			<td><%= shift.employee.phone %></td>
 			<td>
 				<%= link_to(edit_shift_path(shift), class: 'button tiny radius warning') do %>

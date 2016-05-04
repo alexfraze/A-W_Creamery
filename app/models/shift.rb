@@ -50,6 +50,10 @@ class Shift < ActiveRecord::Base
     self.update_attribute(:end_time, Time.current)
   end
 
+  def create_weeks_shifts
+    
+  end
+
   def duration
     # returns the duration of the shift in units of hours (fractional)
     # since creamery not opened past midnight, don't have to

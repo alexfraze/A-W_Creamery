@@ -6,8 +6,18 @@ class AssignmentsController < ApplicationController
   authorize_resource
 
   def index
-    @current_assignments = Assignment.current.by_store.by_employee.chronological.paginate(page: params[:page]).per_page(15)
-    @past_assignments = Assignment.past.by_employee.by_store.paginate(page: params[:page]).per_page(15)  
+    #Assignment.all = Assignment.all.select{|a| can? :read, a}
+    if current_user.role? :employee
+      @current_assignments = [current_user.employee.current_assignment]
+      @past_assignments = []
+    elsif current_user.role? :manager
+      @current_assignments = Assignment.current.for_store(current_user.employee.current_assignment.store.id).by_employee.chronological
+      @past_assignments = Assignment.past.for_store(current_user.employee.current_assignment.store.id)
+      else
+      @current_assignments = Assignment.current
+      @past_assignments = Assignment.past  
+    end
+    
   end
 
   # def show
@@ -17,20 +27,7 @@ class AssignmentsController < ApplicationController
 
   def new
     @assignment = Assignment.new
-    # if params[:from].nil?
-    #   if params[:id].nil?
-    #     @assignment = Assignment.new
-    #   else
-    #     @assignment = Assignment.find(params[:id])
-    #   end
-    # else
-    #   @assignment = Assignment.new
-    #   if params[:from] == "store" 
-    #     @assignment.store_id = params[:id]
-    #   else
-    #     @assignment.employee_id = params[:id]
-    #   end
-    # end
+
   end
 
   def edit

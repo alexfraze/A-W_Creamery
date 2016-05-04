@@ -17,9 +17,11 @@
         elsif current_user.role? :admin or current_user.role? :guest
           redirect_to home_path, notice: "Logged in!"
         else
-          flash.now.alert = "Email or password is invalid"
-          render "new"
+          redirect_to home_path, notice: "Logged in!"
         end
+      else
+        flash.now.alert = "Email or password is invalid"
+        render "new"
       end
     end
 

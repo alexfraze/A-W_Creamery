@@ -23,8 +23,6 @@ class Store < ActiveRecord::Base
   # make sure stores have unique names
   validates_uniqueness_of :name
 
-
-
   #nested forms for users
   accepts_nested_attributes_for :store_flavors,  allow_destroy: true
 
@@ -33,7 +31,6 @@ class Store < ActiveRecord::Base
   scope :alphabetical, -> { order('name') }
   scope :active,       -> { where(active: true) }
   scope :inactive,     -> { where(active: false) }
-  
   
   # Misc constants
   STATES_LIST = [['Ohio', 'OH'],['Pennsylvania', 'PA'],['West Virginia', 'WV']]
@@ -47,6 +44,13 @@ class Store < ActiveRecord::Base
       self.save
     end
     coord
+  end
+
+
+  def create_map_link(zoom=14,width=600,height=600)
+    get_store_coordinates
+    markers = "&markers=color:red%7Ccolor:red%7Clabel:#{self.name}%7C#{self.latitude},#{self.longitude}"
+    map = "http://maps.google.com/maps/api/staticmap?center= #{latitude},#{longitude}&zoom=#{zoom}&size=#{width}x#{height}&maptype=roadmapmaptype=roadmap#{markers}&sensor=false"
   end
   
   # Callback code

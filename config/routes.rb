@@ -19,11 +19,15 @@ Rails.application.routes.draw do
   get 'contact' => 'home#contact', as: :contact
   get 'privacy' => 'home#privacy', as: :privacy
 
-  get 'future_shifts' => 'shifts#future_shifts', :as => :future_shifts
-  get 'past_shifts' => 'shifts#past_shifts', :as => :past_shifts
+  get 'incomplete_shifts' => 'shifts#incomplete_shifts', :as => :incomplete_shifts
+  get 'completed_shifts' => 'shifts#completed_shifts', :as => :completed_shifts
   
   get 'start_now/:id' => 'shifts#start_now', :as => :start_now
   get 'end_now/:id' => 'shifts#end_now', :as => :end_now
+
+  get 'create_this_week' => 'shifts#create_this_week', :as => :create_this_week
+  get 'create_next_week' => 'shifts#create_next_week', :as => :create_next_week
+  
 
 
   # Set the root url

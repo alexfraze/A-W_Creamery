@@ -353,7 +353,7 @@ $crumb-side-padding: rem-calc(12);
 // $include-html-button-classes: $include-html-classes;
 
 // We use these to build padding for buttons.
-// $button-tny: rem-calc(10);
+// $button-tny: rem-calc(11);
 // $button-sml: rem-calc(14);
 // $button-med: rem-calc(16);
 // $button-lrg: rem-calc(18);
@@ -374,15 +374,15 @@ $crumb-side-padding: rem-calc(12);
 // $button-font-align: center;
 
 // We use these to control various hover effects.
-// $button-function-factor: 5%;
+$button-function-factor: 5%;
 
 // We use these to control button border styles.
-// $button-border-width: 1px;
-// $button-border-style: solid;
+$button-border-width: 1px;
+$button-border-style: solid;
 
 // We use this to set the default radius used throughout the core.
-// $button-radius: $global-radius;
-// $button-round: $global-rounded;
+ //$button-radius: $global-radius;
+ //$button-round: $global-rounded;
 
 // We use this to set default opacity for disabled buttons.
 // $button-disabled-opacity: 0.7;
@@ -461,7 +461,7 @@ $crumb-side-padding: rem-calc(12);
 
 // Dropdown Buttons
 
-// $include-html-button-classes: $include-html-classes;
+$include-html-button-classes: $include-html-classes;
 
 // We use these to set the color of the pip in dropdown buttons
 // $dropdown-button-pip-color: #fff;
@@ -1406,7 +1406,20 @@ width: 240px;
 
 @import 'foundation';
 
+#start_button {
+width: 80%;
+height: 30%;
+background: green;
+margin: auto;
+}
 
+
+#end_button {
+width: 80%;
+height: 30%;
+background: red;
+margin: auto;
+}
 
 #about_image {
 max-width: 100%;

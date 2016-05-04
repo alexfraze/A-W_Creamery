@@ -11,8 +11,8 @@ class Ability
                 can :read, Employee do |e|
                     e.working? && e.current_assignment.store == user.employee.current_assignment.store
                 end
-                can :past_shifts, Shift 
-                can :future_shifts, Shift
+                can :incomplete_shifts, Shift 
+                can :completed_shifts, Shift
                 can :read, Assignment do |a|
                      a.store == user.employee.current_assignment.store
                 end
@@ -31,8 +31,12 @@ class Ability
     			can [:create, :destroy], StoreFlavor do |sf|
     				sf.store == user.employee.current_assignment.store 
     			end
+                can :create_this_week, Shift
+                can :create_next_week, Shift 
             end
         elsif user.role? :employee
+            can :incomplete_shifts, Shift 
+            can :completed_shifts, Shift
             can :read, [Store, Job, Flavor] 
             can :read, [Assignment, User, Shift] do |x| #user, shift
             	x.employee == user.employee

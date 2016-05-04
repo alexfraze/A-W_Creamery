@@ -16,7 +16,7 @@
 </div>
 
 <!-- Add a button for new instances of object -->
-<% if !current_user.nil? and (current_user.role? :admin or (current_user.role? :manager and model_name!="assignment"))%>
+<% if !current_user.nil? and (current_user.role? :admin or (current_user.role? :manager and model_name!="assignment" or model_name!="employee" or model_name!="store"))%>
 <%= link_to(eval("new_#{model_name}_path"), class: "button radius") do %>
 
 <!-- <i class="fa fa-plus"></i> -->
