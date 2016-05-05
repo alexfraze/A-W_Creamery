@@ -40,29 +40,29 @@ def create_next_week
   e = current_user.employee
   curr_a = e.current_assignment
   if current_user.role? :manager
-      @this_weeks_shifts = Shift.for_next_days(5).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
-    else current_user.role? :admin
-    @this_weeks_shifts = Shift.for_next_days(10).chronological#.paginate(:page => params[:page], :per_page => 10)
+      @this_weeks_shifts = Shift.for_next_days(5).select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
+  else
+        @this_weeks_shifts = Shift.for_next_days(5).select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
   end
-  @this_weeks_shifts_copy = @this_weeks_shifts.map do |e| e.dup end 
+    @this_weeks_shifts_copy = @this_weeks_shifts.map do |e| e.dup end 
     @create_next_week = @this_weeks_shifts_copy.each{|s| s.date = (s.date + 7) }
-    @create_next_week.each{|s| s.save!}
+    @create_next_week.each{|s| s.save}
     redirect_to shifts_path
-  end
+    end
 
-  def create_this_week
-    e = current_user.employee
-    curr_a = e.current_assignment
-    if current_user.role? :manager
-      @past_weeks_shifts = Shift.for_past_days(7).chronological.select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
-    else current_user.role? :admin
-      @this_weeks_shifts = Shift.for_past_days(7).chronological#.paginate(:page => params[:page], :per_page => 10)
+      def create_this_week
+        e = current_user.employee
+        curr_a = e.current_assignment
+        if current_user.role? :manager
+      @last_weeks_shifts = Shift.for_past_days(7).select{|s| s.assignment.store == curr_a.store}#.paginate(:page => params[:page], :per_page => 10)
+    else 
+      @last_weeks_shifts = Shift.for_past_days(7)#.paginate(:page => params[:page], :per_page => 10)
     end
     @last_weeks_shifts_copy = @last_weeks_shifts.map do |e| e.dup end 
-    @create_this_week = @last_weeks_shifts_copy.each{|s| s.date = (s.date + 7) }
-    @create_this_week.each{|s| s.save!}
-    redirect_to shifts_path
-  end
+      @create_this_week = @last_weeks_shifts_copy.each{|s| s.date = (s.date + 7) }
+      @create_this_week.each{|s| s.save}
+      redirect_to shifts_path
+    end
 
     def start_now
       @shift.start_now
@@ -111,32 +111,32 @@ def create_next_week
     if current_user.role? :manager
      @completed_shifts = Shift.completed.for_store(current_user.employee.current_assignment.store)
    elsif current_user.role? :employee
-      @completed_shifts = Shift.completed.for_employee(current_user.employee)
-   else 
-      @completed_shifts = Shift.completed
-   
-   end
-  end
+    @completed_shifts = Shift.completed.for_employee(current_user.employee)
+  else 
+    @completed_shifts = Shift.completed
 
-  def incomplete_shifts
-    if current_user.role? :manager
-     @incomplete_shifts = Shift.incomplete.for_store(current_user.employee.current_assignment.store)
-    elsif current_user.role? :employee
-      @incomplete_shifts = Shift.incomplete.for_employee(current_user.employee)
-   else 
-      @incomplete_shifts = Shift.incomplete
-   end
   end
+end
+
+def incomplete_shifts
+  if current_user.role? :manager
+   @incomplete_shifts = Shift.incomplete.for_store(current_user.employee.current_assignment.store)
+ elsif current_user.role? :employee
+  @incomplete_shifts = Shift.incomplete.for_employee(current_user.employee)
+else 
+  @incomplete_shifts = Shift.incomplete
+end
+end
 
 
-  private
-  def set_shift
-    @shift = Shift.find(params[:id])
-  end
+private
+def set_shift
+  @shift = Shift.find(params[:id])
+end
 
-  def shift_params
-    params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, :job_ids => [])
-  end
+def shift_params
+  params.require(:shift).permit(:assignment_id, :date, :start_time, :end_time, :notes, :job_ids => [])
+end
 
 
 end

@@ -65,3 +65,9 @@ run through all auths and make sure they are doing what they are supposed to.
 - write and make sure all tests for controllers and models are passing
 - finish writing style notes in read me_
 - piazza questions incorporate
+
+Grading disputes:
+1. no dashboards but custome routing takes users directly to their most important page which is basically a dashboard and should get some points back.
+2. can create user with employee -- nested form does work and can add user to an employee -- my view was screwed up but this does work.
+3. marked off in 3 places for not being able to edit self info
+4. my mass assign shifts doesnt work but it does work if you remove the bang! ??
