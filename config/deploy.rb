@@ -1,5 +1,5 @@
 # Change these
-server 107.170.120.21, port: 2255, roles: [:web, :app, :db], primary: true
+server '107.170.120.21', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:alexfraze/A-W_Creamery.git'
 set :application,     'A-W_Creamery'
