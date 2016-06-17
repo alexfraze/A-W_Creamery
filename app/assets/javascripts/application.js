@@ -11,8 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//= require jquery-ui
+
 //= require jquery_nested_form
 //= require foundation.min
 //= require_tree .
