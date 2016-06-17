@@ -83,6 +83,6 @@ group :development do
   gem 'email_spec'
   gem 'nokogiri'
   gem 'simplecov'
-  gem 'single_test'
+  #gem 'single_test'
 end
 
