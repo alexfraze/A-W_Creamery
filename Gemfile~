@@ -85,5 +85,5 @@ group :development do
   gem 'single_test'
 end
 
-  gem 'puma'
+ gem 'puma'
 
